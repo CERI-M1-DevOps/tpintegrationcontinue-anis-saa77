@@ -13,6 +13,22 @@ jobs:
             - name: Check merge status
               run: |
                   echo "The PR was merged"
+            - name: Checkout du dépôt
+              uses: actions/checkout@v4
+
+            - name: Setup du JDK # Installation de la version de Java
+              uses: actions/setup-java@v3
+              with:
+                distribution: corretto
+                java-version: '21'
+                cache: maven
+
+            - name: Cache des dépendances Maven
+              uses: actions/cache@v4
+              with:
+                path: ~/.m2
+                key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+                restore-keys: ${{ runner.os }}-m2
 
             - name: Generate Documentation
               run: mvn -B javadoc::javadoc
