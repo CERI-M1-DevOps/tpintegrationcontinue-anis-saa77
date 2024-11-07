@@ -5,6 +5,9 @@ on:
         types:
             - closed
 
+permissions: #Pour corriger une erreur :  Error: Action failed with "The process '/usr/bin/git' failed with exit code 128"
+  contents: write
+
 jobs:
     documentation-deployment:
         if: github.event.pull_request.merged == true
