@@ -1,0 +1,24 @@
+name: Documentation Deployment
+
+on:
+    pull_request:
+        types:
+            - closed
+
+jobs:
+    documentation-deployment:
+        if: github.event.pull_request.merged == true
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check merge status
+              run: |
+                  echo "The PR was merged"
+
+            - name: Generate Documentation
+              run: mvn -B javadoc::javadoc
+
+            - name: Deploy
+              run: peaceiris/actions-gh-pages@v4
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./public
