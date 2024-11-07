@@ -55,7 +55,7 @@ class ListeSimpleTest {
     }
 
     @Test
-    void modifiePremier() {
+    void modifiePremierCasNormal() {
         listeATester.ajout(1);
         listeATester.ajout(2);
         listeATester.ajout(3);
@@ -63,7 +63,30 @@ class ListeSimpleTest {
         assertEquals("ListeSimple(Noeud(3), Noeud(4), Noeud(1))", listeATester.toString());
         assertEquals(4, listeATester.tete.getSuivant().getElement());
     }
-
+    @Test
+    void modifiePremierListeVide() {
+        listeATester.modifiePremier(2, 4);
+        assertEquals("ListeSimple()", listeATester.toString());
+        assertEquals(0, listeATester.getSize());
+    }
+    @Test
+    void modifiePremierAveDeuxMemesValeurs() {
+        listeATester.ajout(1);
+        listeATester.ajout(2);
+        listeATester.ajout(3);
+        listeATester.modifiePremier(2, 2);
+        assertEquals("ListeSimple(Noeud(3), Noeud(2), Noeud(1))", listeATester.toString());
+        assertEquals(3, listeATester.getSize());
+    }
+    @Test
+    void modifiePremierNonExistant() {
+        listeATester.ajout(1);
+        listeATester.ajout(2);
+        listeATester.ajout(3);
+        listeATester.modifiePremier(5, 4);
+        assertEquals("ListeSimple(Noeud(3), Noeud(4), Noeud(1))", listeATester.toString());
+        assertEquals(4, listeATester.tete.getSuivant().getElement());
+    }
     @Test
     void modifieTous() {
         listeATester.ajout(1);
