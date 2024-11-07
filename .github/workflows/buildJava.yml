@@ -13,6 +13,21 @@ jobs:
         with:
           distribution: corretto
           java-version: '21'
+          cache: maven
+
+      - name: Cache des dépendances Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+
+      - name: Cache pour SonarQube
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
 
       - name: Build avec Maven # Compilation et tests du projet
         env:
